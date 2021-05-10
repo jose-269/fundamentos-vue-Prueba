@@ -75,17 +75,25 @@ export default new Vuex.Store({
             state.ventas.push(agregaCantidad);
           } else {
             state.ventas = state.ventas.map((obj) => {
+             const agregaSubT = () => {
+              if(obj.id === agregaCantidad.id) {
+              return  obj.precioSubtotal + agregaCantidad.precioSubtotal
+              }else {
+              return  obj.precioSubtotal
+              }
+             };
+             const agregaCantVendida = () =>{
+               if(obj.id === agregaCantidad.id) {
+                return obj.cantidadVendida + agregaCantidad.cantidadVendida
+               }else {
+                return obj.cantidadVendida
+               }
+             };
               const obj3 = {
                 id: obj.id,
                 nombre: obj.nombre,
-                precioSubtotal:
-                  obj.id === agregaCantidad.id
-                    ? obj.precioSubtotal + agregaCantidad.precioSubtotal
-                    : obj.precioSubtotal,
-                cantidadVendida:
-                  obj.id === agregaCantidad.id
-                    ? obj.cantidadVendida + agregaCantidad.cantidadVendida
-                    : obj.cantidadVendida,
+                precioSubtotal: agregaSubT(),
+                cantidadVendida: agregaCantVendida()
               };
               return obj3;
             });
